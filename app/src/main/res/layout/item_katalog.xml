@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="80dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:background="@drawable/rounded_corner"
+        tools:ignore="UselessParent">
+        <ImageView
+            android:id="@+id/item_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/rounded_corner"
+            android:layout_margin="5dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background"
+            android:contentDescription="@string/content_image"
+            tools:ignore="RtlHardcoded" />
+        <TextView
+            android:id="@+id/txt_subject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/item_image"
+            android:layout_toEndOf="@id/item_image"
+            android:padding="5dp"
+            android:text="Judul"
+            android:textStyle="bold"
+            tools:ignore="RtlHardcoded" />
+        <TextView
+            android:id="@+id/txt_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_subject"
+            android:layout_toRightOf="@id/item_image"
+            android:layout_toEndOf="@id/item_image"
+            android:padding="5dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="desc  sdfsd sfgj sdfh dshgf dsfgiu sdfui sudfgui iufdgu fui  sfdhu asjgdjhsag asjhdgjhsad sadghjsgdsy dasdgyug sadgyug sadygysd ysadgyadg ysds"
+            tools:ignore="RtlHardcoded" />
+
+    </RelativeLayout>
+
+</LinearLayout>
