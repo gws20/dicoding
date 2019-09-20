@@ -2,17 +2,18 @@ package com.gws20.dicoding.moviecatalogue.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.gws20.dicoding.moviecatalogue.Dataset;
 import com.gws20.dicoding.moviecatalogue.R;
-import com.gws20.dicoding.moviecatalogue.adapter.FilmAdapter;
+import com.gws20.dicoding.moviecatalogue.adapter.TabAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,19 +24,10 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ListView listFilmView = findViewById(R.id.list_film);
-        FilmAdapter adapter = new FilmAdapter();
-        listFilmView.setAdapter(adapter);
-        final Dataset dataset = new Dataset();
-        adapter.setListFilm(dataset.getList());
-        listFilmView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this,DetailActivity.class);
-                intent.putExtra(Dataset.FILM, dataset.getList().get(position));
-                startActivity(intent);
-            }
-        });
+        ViewPager pager = findViewById(R.id.pager_main);
+        pager.setAdapter(new TabAdapter(getSupportFragmentManager(),this, new Dataset()));
+        TabLayout tab = findViewById(R.id.tab_main);
+        tab.setupWithViewPager(pager);
 
     }
 
@@ -60,9 +52,11 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id){
+            case R.id.action_language:
+                Intent intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+                startActivity(intent);
+                break;
         }
 
         return super.onOptionsItemSelected(item);

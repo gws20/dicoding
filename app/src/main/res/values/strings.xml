@@ -1,6 +1,19 @@
 <resources>
     <string name="app_name">Movie Catalogue</string>
     <string name="action_settings">Settings</string>
+    <string name="action_language">Language</string>
     <string name="content_image">content image</string>
-    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_detail">Detail</string>
+    <string name="tab_movie">Movie</string>
+    <string name="tab_tv">TV</string>
+    <string name="txt_subject">Title</string>
+    <string name="txt_produser">Producer</string>
+    <string name="txt_sutradara">Director</string>
+    <string name="txt_penulis">Author</string>
+    <string name="txt_produksi">Production</string>
+    <string name="txt_jenis">Genre</string>
+    <string name="txt_cast">Cast</string>
+    <string name="txt_description">Description</string>
+    <string name="txt_unknown">Unknown</string>
+
 </resources>

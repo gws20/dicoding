@@ -1,6 +1,5 @@
 package com.gws20.dicoding.moviecatalogue.adapter;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,21 +12,21 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.gws20.dicoding.moviecatalogue.GWS20;
 import com.gws20.dicoding.moviecatalogue.R;
-import com.gws20.dicoding.moviecatalogue.activity.DetailActivity;
 import com.gws20.dicoding.moviecatalogue.entity.FilmEntity;
+import com.gws20.dicoding.moviecatalogue.entity.TVEntity;
 
 import java.util.List;
 
-public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.ViewHolder> {
+public class TVAdapter extends RecyclerView.Adapter<TVAdapter.ViewHolder> {
     private LayoutInflater inflater;
-    private List<FilmEntity> listFilm;
-    private OnItemClickListener listener;
+    private List<TVEntity> listTV;
+    private TVAdapter.OnItemClickListener listener;
 
-    public FilmAdapter(){
+    public TVAdapter(){
         this.inflater = LayoutInflater.from(GWS20.getInstance());
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener){
+    public void setOnItemClickListener(TVAdapter.OnItemClickListener listener){
         this.listener=listener;
     }
 
@@ -35,20 +34,20 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.ViewHolder> {
         void onItemClickListener(View v, int position);
     }
 
-    public void setListFilm(List<FilmEntity> listFilm) {
-        this.listFilm = listFilm;
+    public void setListTV(List<TVEntity> listTV) {
+        this.listTV = listTV;
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new ViewHolder(this.inflater.inflate(R.layout.item_katalog, viewGroup, false));
+    public TVAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        return new TVAdapter.ViewHolder(this.inflater.inflate(R.layout.item_katalog, viewGroup, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        FilmEntity current = listFilm.get(position);
+    public void onBindViewHolder(@NonNull TVAdapter.ViewHolder viewHolder, int position) {
+        TVEntity current = listTV.get(position);
         viewHolder.txtSubject.setText(current.getSubject());
         viewHolder.txtDescription.setText(current.getDesc());
         Glide.with(GWS20.getInstance()).load(current.getImg())
@@ -58,12 +57,12 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.ViewHolder> {
 
     @Override
     public long getItemId(int position) {
-        return (long) this.listFilm.get(position).getId();
+        return (long) this.listTV.get(position).getId();
     }
 
     @Override
     public int getItemCount() {
-        if(listFilm!=null) return this.listFilm.size();
+        if(listTV !=null) return this.listTV.size();
         else return 0;
     }
 

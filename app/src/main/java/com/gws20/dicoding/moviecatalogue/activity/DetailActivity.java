@@ -16,6 +16,7 @@ import com.gws20.dicoding.moviecatalogue.Dataset;
 import com.gws20.dicoding.moviecatalogue.R;
 import com.gws20.dicoding.moviecatalogue.adapter.CastAdapter;
 import com.gws20.dicoding.moviecatalogue.entity.FilmEntity;
+import com.gws20.dicoding.moviecatalogue.entity.TVEntity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -43,8 +44,9 @@ public class DetailActivity extends AppCompatActivity {
         ImageView img = findViewById(R.id.img_film);
         TagView<String> tag_film = findViewById(R.id.tagview);
 
-        FilmEntity film = getIntent().getParcelableExtra(Dataset.FILM);
-        if(film!=null){
+        int pos = getIntent().getIntExtra(Dataset.FILM,-1);
+        if(pos>=0){
+            FilmEntity film = new Dataset().getListFilm().get(pos);
             subject.setText(film.getSubject());
             produser.setText(film.getProduser());
             sutradara.setText(film.getSutradara());
@@ -63,6 +65,29 @@ public class DetailActivity extends AppCompatActivity {
             listCast.setAdapter(adapter);
             adapter.setData(film.getCast());
             Glide.with(this).load(film.getImg()).into(img);
+        }else {
+            pos = getIntent().getIntExtra(Dataset.TV,-1);
+            if(pos>=0) {
+                TVEntity tv = new Dataset().getListTV().get(pos);
+                subject.setText(tv.getSubject());
+                produser.setText(tv.getProduser());
+                sutradara.setText(tv.getSutradara());
+                penulis.setText(tv.getPenulis());
+                produksi.setText(tv.getProduksi());
+                description.setText(tv.getDesc());
+                tag_film.setTags(tv.getJenis(), new DataTransform<String>() {
+                    @NotNull
+                    @Override
+                    public String transfer(String s) {
+                        return s;
+                    }
+                });
+                CastAdapter adapter = new CastAdapter();
+                listCast.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+                listCast.setAdapter(adapter);
+                adapter.setData(tv.getCast());
+                Glide.with(this).load(tv.getImg()).into(img);
+            }
         }
     }
 

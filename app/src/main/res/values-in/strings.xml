@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Katalog Film</string>
+    <string name="action_settings">Pengaturan</string>
+    <string name="action_language">Bahasa</string>
+    <string name="content_image">gambar</string>
+    <string name="title_activity_detail">Rincian</string>
+    <string name="tab_movie">Film</string>
+    <string name="tab_tv">TV</string>
+    <string name="txt_subject">Judul</string>
+    <string name="txt_produser">Produser</string>
+    <string name="txt_sutradara">Sutradara</string>
+    <string name="txt_penulis">Penulis</string>
+    <string name="txt_produksi">Produksi</string>
+    <string name="txt_jenis">Jenis</string>
+    <string name="txt_cast">Pemeran</string>
+    <string name="txt_description">Tentang</string>
+    <string name="txt_unknown">Tidak diketahui</string>
+</resources>
