@@ -16,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.gws20.dicoding.moviecatalogue.R;
 import com.gws20.dicoding.moviecatalogue.activity.DetailActivity;
@@ -30,6 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MovieFragment extends Fragment {
+    private ProgressBar mProgressBar;
+
     public static MovieFragment newInstance() {
         return new MovieFragment();
     }
@@ -50,6 +53,8 @@ public class MovieFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         RecyclerView listFilmView = view.findViewById(R.id.list_film);
+        mProgressBar = view.findViewById(R.id.progress_loader);
+        mProgressBar.setVisibility(View.VISIBLE);
         final FilmAdapter adapter = new FilmAdapter();
         listFilmView.setAdapter(adapter);
         listFilmView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -67,6 +72,7 @@ public class MovieFragment extends Fragment {
                         startActivity(intent);
                     }
                 });
+                mProgressBar.setVisibility(View.GONE);
             }
         });
     }

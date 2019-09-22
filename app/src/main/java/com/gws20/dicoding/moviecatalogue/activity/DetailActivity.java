@@ -9,7 +9,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -38,6 +40,7 @@ public class DetailActivity extends AppCompatActivity {
     private RecyclerView mListCast;
     private ImageView mImg;
     private TagView<String> mTagFilm;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,8 @@ public class DetailActivity extends AppCompatActivity {
         mListCast = findViewById(R.id.list_cast);
         mImg = findViewById(R.id.img_film);
         mTagFilm = findViewById(R.id.tagview);
+        mProgressBar = findViewById(R.id.progress_loader);
+        mProgressBar.setVisibility(View.VISIBLE);
 
         MovieViewModel movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
         TVViewModel tvViewModel = ViewModelProviders.of(this).get(TVViewModel.class);
@@ -67,49 +72,25 @@ public class DetailActivity extends AppCompatActivity {
         if(isMovie) movieViewModel.getDetail(id).observe(this, new Observer<FilmEntity>() {
             @Override
             public void onChanged(@Nullable FilmEntity film) {
-                //if(id>=0){
-                    mSubject.setText(film.getTitle());
-                    mProduser.setText(film.getProducer());
-                    mSutradara.setText(film.getDirector());
-                    mPenulis.setText(film.getWriter());
-                    mProduksi.setText(film.getProduction_companies());
-                    mDescription.setText(film.getOverview());
-                    mTagFilm.setTags(film.getGenres(), new DataTransform<String>() {
-                        @NotNull
-                        @Override
-                        public String transfer(String s) {
-                            return s;
-                        }
-                    });
-                    CastAdapter adapter = new CastAdapter();
-                    mListCast.setLayoutManager(new LinearLayoutManager(DetailActivity.this,LinearLayoutManager.HORIZONTAL, false));
-                    mListCast.setAdapter(adapter);
-                    adapter.setData(film.getCast());
-                    Glide.with(DetailActivity.this).load(String.format(Api.IMG_HOST,Api.SIZE.W_342,film.getPoster_path())).into(mImg);
-                /*}/*else {
-                    id = getIntent().getIntExtra(Dataset.TV,-1);
-                    if(id>=0) {
-                        TVEntity tv = new Dataset().getListTV().get(id);
-                        mSubject.setText(tv.getSubject());
-                        mProduser.setText(tv.getProduser());
-                        mSutradara.setText(tv.getSutradara());
-                        mPenulis.setText(tv.getPenulis());
-                        mProduksi.setText(tv.getProduksi());
-                        mDescription.setText(tv.getDesc());
-                        mTagFilm.setTags(tv.getJenis(), new DataTransform<String>() {
-                            @NotNull
-                            @Override
-                            public String transfer(String s) {
-                                return s;
-                            }
-                        });
-                        CastAdapter adapter = new CastAdapter();
-                        mListCast.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-                        mListCast.setAdapter(adapter);
-                        adapter.setData(tv.getCast());
-                        Glide.with(this).load(tv.getImg()).into(mImg);
+                mSubject.setText(film.getTitle());
+                mProduser.setText(film.getProducer());
+                mSutradara.setText(film.getDirector());
+                mPenulis.setText(film.getWriter());
+                mProduksi.setText(film.getProduction_companies());
+                mDescription.setText(film.getOverview());
+                mTagFilm.setTags(film.getGenres(), new DataTransform<String>() {
+                    @NotNull
+                    @Override
+                    public String transfer(String s) {
+                        return s;
                     }
-                }*/
+                });
+                CastAdapter adapter = new CastAdapter();
+                mListCast.setLayoutManager(new LinearLayoutManager(DetailActivity.this,LinearLayoutManager.HORIZONTAL, false));
+                mListCast.setAdapter(adapter);
+                adapter.setData(film.getCast());
+                Glide.with(DetailActivity.this).load(String.format(Api.IMG_HOST,Api.SIZE.W_342,film.getPoster_path())).into(mImg);
+                mProgressBar.setVisibility(View.GONE);
             }
         });
         else {
@@ -135,6 +116,7 @@ public class DetailActivity extends AppCompatActivity {
                     mListCast.setAdapter(adapter);
                     adapter.setData(tv.getCast());
                     Glide.with(DetailActivity.this).load(String.format(Api.IMG_HOST,Api.SIZE.W_342,tv.getPoster_path())).into(mImg);
+                    mProgressBar.setVisibility(View.GONE);
                 }
             });
         }

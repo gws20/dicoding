@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.gws20.dicoding.moviecatalogue.R;
 import com.gws20.dicoding.moviecatalogue.activity.DetailActivity;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TVFragment extends Fragment {
+    private ProgressBar mProgressBar;
 
     private List<TVEntity> mParamTV;
 
@@ -55,6 +57,8 @@ public class TVFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         RecyclerView listTVView = view.findViewById(R.id.list_tv);
+        mProgressBar = view.findViewById(R.id.progress_loader);
+        mProgressBar.setVisibility(View.VISIBLE);
         final TVAdapter adapter = new TVAdapter();
         listTVView.setAdapter(adapter);
         listTVView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -71,6 +75,7 @@ public class TVFragment extends Fragment {
                         startActivity(intent);
                     }
                 });
+                mProgressBar.setVisibility(View.GONE);
             }
         });
     }
