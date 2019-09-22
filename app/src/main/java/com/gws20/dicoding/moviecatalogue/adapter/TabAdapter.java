@@ -5,19 +5,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.gws20.dicoding.moviecatalogue.Dataset;
 import com.gws20.dicoding.moviecatalogue.R;
 import com.gws20.dicoding.moviecatalogue.fragment.MovieFragment;
 import com.gws20.dicoding.moviecatalogue.fragment.TVFragment;
 
 public class TabAdapter extends FragmentPagerAdapter {
     private Context mContext;
-    private Dataset mData;
 
-    public TabAdapter(FragmentManager fm, Context context, Dataset dataset) {
+    public TabAdapter(FragmentManager fm, Context context) {
         super(fm);
         mContext=context;
-        mData=dataset;
     }
 
     @Override

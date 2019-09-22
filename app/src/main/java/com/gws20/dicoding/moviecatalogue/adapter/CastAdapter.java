@@ -12,18 +12,20 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.gws20.dicoding.moviecatalogue.GWS20;
 import com.gws20.dicoding.moviecatalogue.R;
-import com.gws20.dicoding.moviecatalogue.entity.CastEntity;
+import com.gws20.dicoding.moviecatalogue.entity.PeopleEntity;
+import com.gws20.dicoding.moviecatalogue.utils.Api;
+
 import java.util.List;
 
 public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
-    private List<CastEntity> listCast;
+    private List<PeopleEntity> listCast;
     private LayoutInflater inflater;
 
     public CastAdapter(){
         this.inflater = LayoutInflater.from(GWS20.getInstance());
     }
 
-    public void setData(List<CastEntity> list){
+    public void setData(List<PeopleEntity> list){
         this.listCast = list;
         notifyDataSetChanged();
     }
@@ -37,10 +39,10 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        CastEntity current = listCast.get(position);
+        PeopleEntity current = listCast.get(position);
         viewHolder.txtCast.setText(current.getName());
-        if(current.getImg()!=null){
-            Glide.with(GWS20.getInstance()).load(current.getImg())
+        if(current.getProfile_path()!=null){
+            Glide.with(GWS20.getInstance()).load(String.format(Api.IMG_HOST,Api.SIZE.W_92,current.getProfile_path()))
                     .apply(new RequestOptions().override(50,50))
                     .into(viewHolder.imgCast);
         }

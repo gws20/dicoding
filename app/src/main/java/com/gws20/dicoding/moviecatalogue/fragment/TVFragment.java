@@ -1,5 +1,7 @@
 package com.gws20.dicoding.moviecatalogue.fragment;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,20 +18,19 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.gws20.dicoding.moviecatalogue.Dataset;
 import com.gws20.dicoding.moviecatalogue.R;
 import com.gws20.dicoding.moviecatalogue.activity.DetailActivity;
 import com.gws20.dicoding.moviecatalogue.adapter.FilmAdapter;
 import com.gws20.dicoding.moviecatalogue.adapter.TVAdapter;
 import com.gws20.dicoding.moviecatalogue.entity.FilmEntity;
 import com.gws20.dicoding.moviecatalogue.entity.TVEntity;
+import com.gws20.dicoding.moviecatalogue.utils.Api;
+import com.gws20.dicoding.moviecatalogue.viewModel.TVViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TVFragment extends Fragment {
-
-    private static final String ARG_TV= "argTV";
 
     private List<TVEntity> mParamTV;
 
@@ -41,7 +42,6 @@ public class TVFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mParamTV= new Dataset().getListTV();
     }
 
     @Override
@@ -55,16 +55,22 @@ public class TVFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         RecyclerView listTVView = view.findViewById(R.id.list_tv);
-        TVAdapter adapter = new TVAdapter();
+        final TVAdapter adapter = new TVAdapter();
         listTVView.setAdapter(adapter);
-        adapter.setListTV(mParamTV);
         listTVView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter.setOnItemClickListener(new TVAdapter.OnItemClickListener() {
+        TVViewModel tvViewModel = ViewModelProviders.of(this).get(TVViewModel.class);
+        tvViewModel.getList().observe(getViewLifecycleOwner(), new Observer<List<TVEntity>>() {
             @Override
-            public void onItemClickListener(View v, int position) {
-                Intent intent = new Intent(getContext(), DetailActivity.class);
-                intent.putExtra(Dataset.TV, position);
-                getContext().startActivity(intent);
+            public void onChanged(@Nullable final List<TVEntity> tvEntities) {
+                adapter.setListTV(tvEntities);
+                adapter.setOnItemClickListener(new TVAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClickListener(View v, int position) {
+                        Intent intent = new Intent(getContext(), DetailActivity.class);
+                        intent.putExtra(Api.TV, tvEntities.get(position).getId());
+                        startActivity(intent);
+                    }
+                });
             }
         });
     }

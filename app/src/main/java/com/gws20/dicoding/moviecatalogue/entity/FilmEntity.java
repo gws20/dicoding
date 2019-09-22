@@ -1,137 +1,204 @@
 package com.gws20.dicoding.moviecatalogue.entity;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.util.List;
 
-public class FilmEntity implements Parcelable{
-    public final static String ID = "id";
-    public final static String SUBJECT = "subject";
-    public final static String DESC = "desc";
-    public final static String IMG = "img";
-    public final static String TIME = "time";
-    public final static String KATEGORI = "kategori";
-    public final static String PRODUSER = "produser";
-    public final static String PRODUKSI = "produksi";
-    public final static String SUTRADARA = "sutradara";
-    public final static String PENULIS = "penulis";
-    public final static String JENIS = "jenis";
-    public final static String CAST = "cast";
+public class FilmEntity {
+    public final static java.lang.String ID = "id";
+    public final static java.lang.String POPULARITY = "popularity";
+    public final static java.lang.String VOTE_COUNT = "vote_count";
+    public final static java.lang.String VIDEO = "video";
+    public final static java.lang.String POSTER_PATH = "poster_path";
+    public final static java.lang.String ADULT = "adult";
+    public final static java.lang.String BACKDROP_PATH = "backdrop_path";
+    public final static java.lang.String ORI_LANG = "original_language";
+    public final static java.lang.String ORI_TITLE = "original_title";
+    public final static java.lang.String TITLE = "title";
+    public final static java.lang.String VOTE_AVG = "vote_average";
+    public final static java.lang.String OVERVIEW = "overview";
+    public final static java.lang.String RELEASE_DATE = "release_date";
+
+    public final static java.lang.String GENRES = "genres";
+    public final static java.lang.String BUDGET = "budget";
+    public final static java.lang.String HOMEPAGE = "homepage";
+    public final static java.lang.String PROD_COMPANIES = "production_companies";
+    public final static java.lang.String REVENUE = "revenue";
+    public final static java.lang.String RUNTIME = "runtime";
+    public final static java.lang.String SPOKEN_LANG = "spoken_languages";
+    public final static java.lang.String STATUS = "status";
+    public final static java.lang.String TAGLINE = "tagline";
+    public final static java.lang.String CREDITS = "credits";
+    public final static java.lang.String CAST = "cast";
+    public final static java.lang.String CREW = "crew";
+    public final static java.lang.String NAME = "name";
+    public final static java.lang.String PROFILE_PATH = "profile_path";
+    public final static java.lang.String JOB = "job";
 
     private int id;
-    private String subject;
-    private String desc;
-    private String img;
-    private String time;
-    private String kategori;
-    private String produser;
-    private String produksi;
-    private String sutradara;
-    private String penulis;
-    private List<String> jenis;
-    private List<CastEntity> cast;
+    private long popularity;
+    private int vote_count;
+    private Boolean video;
+    private java.lang.String poster_path;
+    private Boolean adult;
+    private java.lang.String backdrop_path;
+    private java.lang.String original_language;
+    private java.lang.String original_title;
+    private java.lang.String title;
+    private long vote_average;
+    private java.lang.String overview;
+    private java.lang.String release_date;
 
-    public FilmEntity(int id, String subject, String desc, String img, String time, String kategori, String produser, String produksi, String sutradara, String penulis, List<String> jenis, List<CastEntity> cast) {
+    private List<String> genres;
+    private int budget;
+    private java.lang.String homepage;
+    private java.lang.String production_companies;
+    private int revenue;
+    private int runtime;
+    private List<LanguageEntity> spoken_languages;
+    private java.lang.String status;
+    private java.lang.String tagline;
+    private List<PeopleEntity> cast;
+    private java.lang.String producer;
+    private java.lang.String director;
+    private java.lang.String writer;
+
+    public FilmEntity(int id, java.lang.String poster_path, java.lang.String title, long vote_average, java.lang.String overview) {
         this.id = id;
-        this.subject = subject;
-        this.desc = desc;
-        this.img = img;
-        this.time = time;
-        this.kategori = kategori;
-        this.produser = produser;
-        this.produksi = produksi;
-        this.sutradara = sutradara;
-        this.penulis = penulis;
-        this.jenis = jenis;
+        this.poster_path = poster_path;
+        this.title = title;
+        this.vote_average = vote_average;
+        this.overview = overview;
+    }
+
+    public FilmEntity(int id, int vote_count, java.lang.String poster_path, Boolean adult, java.lang.String backdrop_path,
+                      java.lang.String title, long vote_average, java.lang.String overview, java.lang.String release_date,
+                      List<String> genres, int budget, java.lang.String homepage,
+                      java.lang.String production_companies, int revenue, int runtime,
+                      java.lang.String status, java.lang.String tagline, List<PeopleEntity> cast, java.lang.String producer,
+                      java.lang.String director, java.lang.String writer) {
+        this.id = id;
+        this.vote_count = vote_count;
+        this.poster_path = poster_path;
+        this.adult = adult;
+        this.backdrop_path = backdrop_path;
+        this.title = title;
+        this.vote_average = vote_average;
+        this.overview = overview;
+        this.release_date = release_date;
+        this.genres = genres;
+        this.budget = budget;
+        this.homepage = homepage;
+        this.production_companies = production_companies;
+        this.revenue = revenue;
+        this.runtime = runtime;
+        this.status = status;
+        this.tagline = tagline;
         this.cast = cast;
+        this.producer = producer;
+        this.director = director;
+        this.writer = writer;
     }
-
-    private FilmEntity(Parcel in) {
-        id = in.readInt();
-        subject = in.readString();
-        desc = in.readString();
-        img = in.readString();
-        time = in.readString();
-        kategori = in.readString();
-        produser = in.readString();
-        produksi = in.readString();
-        sutradara = in.readString();
-        penulis = in.readString();
-        jenis = in.createStringArrayList();
-        cast = in.createTypedArrayList(CastEntity.CREATOR);
-    }
-
-    public static final Creator<FilmEntity> CREATOR = new Creator<FilmEntity>() {
-        @Override
-        public FilmEntity createFromParcel(Parcel in) {
-            return new FilmEntity(in);
-        }
-
-        @Override
-        public FilmEntity[] newArray(int size) {
-            return new FilmEntity[size];
-        }
-    };
 
     public int getId() {
         return id;
     }
 
-    public String getSubject() {
-        return subject;
+    public long getPopularity() {
+        return popularity;
     }
 
-    public String getDesc() {
-        return desc;
+    public int getVote_count() {
+        return vote_count;
     }
 
-    public String getImg() {
-        return img;
+    public Boolean getVideo() {
+        return video;
     }
 
-    public String getProduser() {
-        return produser;
+    public java.lang.String getPoster_path() {
+        return poster_path;
     }
 
-    public String getProduksi() {
-        return produksi;
+    public Boolean getAdult() {
+        return adult;
     }
 
-    public String getSutradara() {
-        return sutradara;
+    public java.lang.String getBackdrop_path() {
+        return backdrop_path;
     }
 
-    public String getPenulis() {
-        return penulis;
+    public java.lang.String getOriginal_language() {
+        return original_language;
     }
 
-    public List<String> getJenis() {
-        return jenis;
+    public java.lang.String getOriginal_title() {
+        return original_title;
     }
 
-    public List<CastEntity> getCast() {
+    public java.lang.String getTitle() {
+        return title;
+    }
+
+    public long getVote_average() {
+        return vote_average;
+    }
+
+    public java.lang.String getOverview() {
+        return overview;
+    }
+
+    public java.lang.String getRelease_date() {
+        return release_date;
+    }
+
+    public List<String> getGenres() {
+        return genres;
+    }
+
+    public int getBudget() {
+        return budget;
+    }
+
+    public java.lang.String getHomepage() {
+        return homepage;
+    }
+
+    public java.lang.String getProduction_companies() {
+        return production_companies;
+    }
+
+    public int getRevenue() {
+        return revenue;
+    }
+
+    public int getRuntime() {
+        return runtime;
+    }
+
+    public List<LanguageEntity> getSpoken_languages() {
+        return spoken_languages;
+    }
+
+    public java.lang.String getStatus() {
+        return status;
+    }
+
+    public java.lang.String getTagline() {
+        return tagline;
+    }
+
+    public List<PeopleEntity> getCast() {
         return cast;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public java.lang.String getProducer() {
+        return producer;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(subject);
-        dest.writeString(desc);
-        dest.writeString(img);
-        dest.writeString(time);
-        dest.writeString(kategori);
-        dest.writeString(produser);
-        dest.writeString(produksi);
-        dest.writeString(sutradara);
-        dest.writeString(penulis);
-        dest.writeStringList(jenis);
-        dest.writeTypedList(cast);
+    public java.lang.String getDirector() {
+        return director;
+    }
+
+    public java.lang.String getWriter() {
+        return writer;
     }
 }

@@ -14,6 +14,7 @@ import com.gws20.dicoding.moviecatalogue.GWS20;
 import com.gws20.dicoding.moviecatalogue.R;
 import com.gws20.dicoding.moviecatalogue.entity.FilmEntity;
 import com.gws20.dicoding.moviecatalogue.entity.TVEntity;
+import com.gws20.dicoding.moviecatalogue.utils.Api;
 
 import java.util.List;
 
@@ -48,9 +49,9 @@ public class TVAdapter extends RecyclerView.Adapter<TVAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull TVAdapter.ViewHolder viewHolder, int position) {
         TVEntity current = listTV.get(position);
-        viewHolder.txtSubject.setText(current.getSubject());
-        viewHolder.txtDescription.setText(current.getDesc());
-        Glide.with(GWS20.getInstance()).load(current.getImg())
+        viewHolder.txtSubject.setText(current.getName());
+        viewHolder.txtDescription.setText(current.getOverview());
+        Glide.with(GWS20.getInstance()).load(String.format(Api.IMG_HOST,Api.SIZE.W_92,current.getPoster_path()))
                 .apply(new RequestOptions().override(60,60))
                 .into(viewHolder.imgFilm);
     }

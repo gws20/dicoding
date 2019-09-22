@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.gws20.dicoding.moviecatalogue.Dataset;
 import com.gws20.dicoding.moviecatalogue.R;
 import com.gws20.dicoding.moviecatalogue.adapter.TabAdapter;
 
@@ -25,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         ViewPager pager = findViewById(R.id.pager_main);
-        pager.setAdapter(new TabAdapter(getSupportFragmentManager(),this, new Dataset()));
+        pager.setAdapter(new TabAdapter(getSupportFragmentManager(),this));
         TabLayout tab = findViewById(R.id.tab_main);
         tab.setupWithViewPager(pager);
 
