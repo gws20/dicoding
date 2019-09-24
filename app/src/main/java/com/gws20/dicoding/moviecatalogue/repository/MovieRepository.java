@@ -1,7 +1,9 @@
 package com.gws20.dicoding.moviecatalogue.repository;
 
 import android.app.Application;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -10,6 +12,10 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.gws20.dicoding.moviecatalogue.entity.FilmEntity;
+import com.gws20.dicoding.moviecatalogue.listeners.OnDeleteListener;
+import com.gws20.dicoding.moviecatalogue.listeners.OnInsertListener;
+import com.gws20.dicoding.moviecatalogue.room.MainDatabase;
+import com.gws20.dicoding.moviecatalogue.room.MovieFavoriteDao;
 import com.gws20.dicoding.moviecatalogue.utils.Api;
 
 import org.json.JSONException;
@@ -21,8 +27,11 @@ public class MovieRepository {
     private Application mAplication;
     private MutableLiveData<List<FilmEntity>> mList;
     private MutableLiveData<FilmEntity> mDetail;
+    private MovieFavoriteDao mMovieDao;
 
     public MovieRepository(Application application){
+        MainDatabase db = MainDatabase.getDatabase(application);
+        mMovieDao = db.movieFavoriteDao();
         mAplication=application;
         mList = new MutableLiveData<>();
         mDetail = new MutableLiveData<>();
@@ -75,5 +84,88 @@ public class MovieRepository {
         return mDetail;
     }
 
+    public LiveData<List<FilmEntity>> getFavoriteList(){
+        return mMovieDao.getMovieList();
+    }
 
+    public MutableLiveData<Long> setFavorite(FilmEntity film){
+        final MutableLiveData<Long> data = new MutableLiveData<>();
+        new insertAsyncTask(mMovieDao, new OnInsertListener() {
+            @Override
+            public void OnSuccess(Long idList) {
+                data.postValue(idList);
+            }
+
+            @Override
+            public void OnFailed(String message) {
+                Toast.makeText(mAplication,message,Toast.LENGTH_LONG).show();
+            }
+        }).execute(film);
+        return data;
+    }
+
+    public MutableLiveData<Integer> deleteFavorite(int id){
+        final MutableLiveData<Integer> data = new MutableLiveData<>();
+        new deleteAsyncTask(mMovieDao, new OnDeleteListener() {
+            @Override
+            public void OnSuccess(int id) {
+                data.postValue(id);
+            }
+
+            @Override
+            public void OnFailed(String message) {
+                Toast.makeText(mAplication,message,Toast.LENGTH_LONG).show();
+            }
+        }).execute(id);
+        return data;
+    }
+
+    public LiveData<Integer> isFavorite(int id){
+        return mMovieDao.getIsFavorite(id);
+    }
+
+    private static class insertAsyncTask extends AsyncTask<FilmEntity, Void, Long> {
+
+        private MovieFavoriteDao mAsyncTaskDao;
+        private OnInsertListener mListener;
+
+        insertAsyncTask(MovieFavoriteDao dao, OnInsertListener listener) {
+            mAsyncTaskDao = dao;
+            mListener = listener;
+        }
+
+        @Override
+        protected Long doInBackground(final FilmEntity... params) {
+            return mAsyncTaskDao.insert(params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Long longs) {
+            super.onPostExecute(longs);
+            mListener.OnSuccess(longs);
+        }
+    }
+
+    private static class deleteAsyncTask extends AsyncTask<Integer, Void, Integer> {
+
+        private MovieFavoriteDao mAsyncTaskDao;
+        private OnDeleteListener mListener;
+
+        deleteAsyncTask(MovieFavoriteDao dao, OnDeleteListener listener) {
+            mAsyncTaskDao = dao;
+            mListener=listener;
+        }
+
+        @Override
+        protected Integer doInBackground(final Integer... params) {
+            mAsyncTaskDao.delete(params[0]);
+            return mAsyncTaskDao.delete(params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
+            mListener.OnSuccess(integer);
+        }
+    }
 }

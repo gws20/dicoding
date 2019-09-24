@@ -11,19 +11,21 @@ import com.gws20.dicoding.moviecatalogue.fragment.TVFragment;
 
 public class TabAdapter extends FragmentPagerAdapter {
     private Context mContext;
+    private int mActivityCode;
 
-    public TabAdapter(FragmentManager fm, Context context) {
+    public TabAdapter(FragmentManager fm, Context context, int activityCode) {
         super(fm);
         mContext=context;
+        mActivityCode=activityCode;
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return MovieFragment.newInstance();
+                return MovieFragment.newInstance(mActivityCode);
             case 1:
-                return TVFragment.newInstance();
+                return TVFragment.newInstance(mActivityCode);
             default:
                 return null;
         }

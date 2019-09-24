@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.gws20.dicoding.moviecatalogue.GWS20;
 import com.gws20.dicoding.moviecatalogue.R;
 import com.gws20.dicoding.moviecatalogue.activity.DetailActivity;
 import com.gws20.dicoding.moviecatalogue.adapter.FilmAdapter;
@@ -27,19 +28,27 @@ import com.gws20.dicoding.moviecatalogue.viewModel.MovieViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MovieFragment extends Fragment {
     private ProgressBar mProgressBar;
 
-    public static MovieFragment newInstance() {
-        return new MovieFragment();
+    private int mActivityCode;
+
+    public static MovieFragment newInstance(int activityCode) {
+        MovieFragment fragment = new MovieFragment();
+        Bundle args = new Bundle();
+        args.putInt(GWS20.ARG_ACTIVITY, activityCode);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mActivityCode = getArguments().getInt(GWS20.ARG_ACTIVITY);
+        }else mActivityCode = 0;
     }
 
     @Override
@@ -59,21 +68,44 @@ public class MovieFragment extends Fragment {
         listFilmView.setAdapter(adapter);
         listFilmView.setLayoutManager(new LinearLayoutManager(getContext()));
         MovieViewModel movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
-        movieViewModel.getList().observe(getViewLifecycleOwner(), new Observer<List<FilmEntity>>() {
-            @Override
-            public void onChanged(@Nullable final List<FilmEntity> filmEntities) {
-                adapter.setListFilm(filmEntities);
-                adapter.setOnItemClickListener(new FilmAdapter.OnItemClickListener() {
+
+        switch (mActivityCode) {
+            case 0:
+                movieViewModel.getList().observe(getViewLifecycleOwner(), new Observer<List<FilmEntity>>() {
                     @Override
-                    public void onItemClickListener(View v, int position) {
-                        Intent intent = new Intent(getContext(), DetailActivity.class);
-                        assert filmEntities != null;
-                        intent.putExtra(Api.MOVIE, filmEntities.get(position).getId());
-                        startActivity(intent);
+                    public void onChanged(@Nullable final List<FilmEntity> filmEntities) {
+                        adapter.setListFilm(filmEntities);
+                        adapter.setOnItemClickListener(new FilmAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClickListener(View v, int position) {
+                                Intent intent = new Intent(getContext(), DetailActivity.class);
+                                assert filmEntities != null;
+                                intent.putExtra(Api.MOVIE, filmEntities.get(position).getId());
+                                startActivity(intent);
+                            }
+                        });
+                        mProgressBar.setVisibility(View.GONE);
                     }
                 });
-                mProgressBar.setVisibility(View.GONE);
-            }
-        });
+                break;
+            case 1:
+                movieViewModel.getFavoriteList().observe(getViewLifecycleOwner(), new Observer<List<FilmEntity>>() {
+                    @Override
+                    public void onChanged(@Nullable final List<FilmEntity> filmEntities) {
+                        adapter.setListFilm(filmEntities);
+                        adapter.setOnItemClickListener(new FilmAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClickListener(View v, int position) {
+                                Intent intent = new Intent(getContext(), DetailActivity.class);
+                                assert filmEntities != null;
+                                intent.putExtra(Api.MOVIE, filmEntities.get(position).getId());
+                                startActivity(intent);
+                            }
+                        });
+                        mProgressBar.setVisibility(View.GONE);
+                    }
+                });
+                break;
+        }
     }
 }

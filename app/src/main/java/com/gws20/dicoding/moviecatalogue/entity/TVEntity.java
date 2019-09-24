@@ -1,31 +1,54 @@
 package com.gws20.dicoding.moviecatalogue.entity;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.List;
 
+@Entity
 public class TVEntity {
+    @Ignore
     public final static String ID = "id";
+    @Ignore
     public final static String ORI_NAME = "original_name";
+    @Ignore
     public final static String NAME = "name";
+    @Ignore
     public final static String VOTE_COUNT = "vote_count";
+    @Ignore
     public final static String FIRST_AIR_DATE = "first_air_date";
+    @Ignore
     public final static String BACKDROP_PATH = "backdrop_path";
+    @Ignore
     public final static String VOTE_AVG = "vote_average";
+    @Ignore
     public final static String OVERVIEW = "overview";
+    @Ignore
     public final static String POSTER_PATH = "poster_path";
+    @Ignore
     public final static String STATUS = "status";
+    @Ignore
     public final static String TYPE = "type";
+    @Ignore
     public final static String CREDITS = "credits";
+    @Ignore
     public final static String GENRES = "genres";
+    @Ignore
     public final static String CAST = "cast";
+    @Ignore
     public final static String CREW = "crew";
+    @Ignore
     public final static String PROD_COMPANIES = "production_companies";
 
+    @PrimaryKey
     private int id;
+    @Ignore
     private String original_name;
     private String name;
+    @Ignore
     private int vote_count;
     private String first_air_date;
     private String backdrop_path;
@@ -38,7 +61,9 @@ public class TVEntity {
     private String director;
     private String writer;
     private String production_companies;
+    @Ignore
     private List<String> genres;
+    @Ignore
     private List<PeopleEntity> cast;
 
     public TVEntity(int id, String poster_path, String name, long vote_average, String overview) {
@@ -137,4 +162,73 @@ public class TVEntity {
     public List<PeopleEntity> getCast() {
         return cast;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setOriginal_name(String original_name) {
+        this.original_name = original_name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setVote_count(int vote_count) {
+        this.vote_count = vote_count;
+    }
+
+    public void setFirst_air_date(String first_air_date) {
+        this.first_air_date = first_air_date;
+    }
+
+    public void setBackdrop_path(String backdrop_path) {
+        this.backdrop_path = backdrop_path;
+    }
+
+    public void setVote_average(long vote_average) {
+        this.vote_average = vote_average;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setProducer(String producer) {
+        this.producer = producer;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public void setWriter(String writer) {
+        this.writer = writer;
+    }
+
+    public void setProduction_companies(String production_companies) {
+        this.production_companies = production_companies;
+    }
+
+    public void setGenres(List<String> genres) {
+        this.genres = genres;
+    }
+
+    public void setCast(List<PeopleEntity> cast) {
+        this.cast = cast;
+    }
+
 }

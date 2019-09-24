@@ -1,5 +1,6 @@
 package com.gws20.dicoding.moviecatalogue.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -13,11 +14,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.gws20.dicoding.moviecatalogue.GWS20;
 import com.gws20.dicoding.moviecatalogue.R;
 import com.gws20.dicoding.moviecatalogue.adapter.TabAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class FavoriteActivity extends AppCompatActivity {
+
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,16 +29,10 @@ public class MainActivity extends AppCompatActivity {
 
         FloatingActionButton fab =findViewById(R.id.fab);
         ViewPager pager = findViewById(R.id.pager_main);
-        pager.setAdapter(new TabAdapter(getSupportFragmentManager(),this, 0));
+        pager.setAdapter(new TabAdapter(getSupportFragmentManager(),this,1));
         TabLayout tab = findViewById(R.id.tab_main);
         tab.setupWithViewPager(pager);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,FavoriteActivity.class);
-                startActivity(intent);
-            }
-        });
+        fab.setVisibility(View.GONE);
 
     }
 

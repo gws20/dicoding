@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.gws20.dicoding.moviecatalogue.GWS20;
 import com.gws20.dicoding.moviecatalogue.R;
 import com.gws20.dicoding.moviecatalogue.activity.DetailActivity;
 import com.gws20.dicoding.moviecatalogue.adapter.FilmAdapter;
@@ -34,16 +35,22 @@ import java.util.List;
 public class TVFragment extends Fragment {
     private ProgressBar mProgressBar;
 
-    private List<TVEntity> mParamTV;
+    private int mActivityCode;
 
-    public static TVFragment newInstance() {
+    public static TVFragment newInstance(int activityCode) {
         TVFragment fragment = new TVFragment();
+        Bundle args = new Bundle();
+        args.putInt(GWS20.ARG_ACTIVITY, activityCode);
+        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mActivityCode = getArguments().getInt(GWS20.ARG_ACTIVITY);
+        }else mActivityCode = 0;
     }
 
     @Override
@@ -63,20 +70,41 @@ public class TVFragment extends Fragment {
         listTVView.setAdapter(adapter);
         listTVView.setLayoutManager(new LinearLayoutManager(getContext()));
         TVViewModel tvViewModel = ViewModelProviders.of(this).get(TVViewModel.class);
-        tvViewModel.getList().observe(getViewLifecycleOwner(), new Observer<List<TVEntity>>() {
-            @Override
-            public void onChanged(@Nullable final List<TVEntity> tvEntities) {
-                adapter.setListTV(tvEntities);
-                adapter.setOnItemClickListener(new TVAdapter.OnItemClickListener() {
+        switch (mActivityCode){
+            case 0 :
+                tvViewModel.getList().observe(getViewLifecycleOwner(), new Observer<List<TVEntity>>() {
                     @Override
-                    public void onItemClickListener(View v, int position) {
-                        Intent intent = new Intent(getContext(), DetailActivity.class);
-                        intent.putExtra(Api.TV, tvEntities.get(position).getId());
-                        startActivity(intent);
+                    public void onChanged(@Nullable final List<TVEntity> tvEntities) {
+                        adapter.setListTV(tvEntities);
+                        adapter.setOnItemClickListener(new TVAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClickListener(View v, int position) {
+                                Intent intent = new Intent(getContext(), DetailActivity.class);
+                                intent.putExtra(Api.TV, tvEntities.get(position).getId());
+                                startActivity(intent);
+                            }
+                        });
+                        mProgressBar.setVisibility(View.GONE);
                     }
                 });
-                mProgressBar.setVisibility(View.GONE);
-            }
-        });
+                break;
+            case 1:
+                tvViewModel.getFavoriteList().observe(getViewLifecycleOwner(), new Observer<List<TVEntity>>() {
+                    @Override
+                    public void onChanged(@Nullable final List<TVEntity> tvEntities) {
+                        adapter.setListTV(tvEntities);
+                        adapter.setOnItemClickListener(new TVAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClickListener(View v, int position) {
+                                Intent intent = new Intent(getContext(), DetailActivity.class);
+                                intent.putExtra(Api.TV, tvEntities.get(position).getId());
+                                startActivity(intent);
+                            }
+                        });
+                        mProgressBar.setVisibility(View.GONE);
+                    }
+                });
+                break;
+        }
     }
 }

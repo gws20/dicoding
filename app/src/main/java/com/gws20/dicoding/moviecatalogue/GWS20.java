@@ -5,6 +5,7 @@ import android.app.Application;
 import timber.log.Timber;
 
 public class GWS20 extends Application {
+    public static final String ARG_ACTIVITY = "activity";//0:mainActivity, 1:FavoriteActivity
     // Singleton instance
     private static GWS20 sInstance = null;
 

@@ -2,6 +2,7 @@ package com.gws20.dicoding.moviecatalogue.viewModel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
@@ -31,5 +32,21 @@ public class TVViewModel extends AndroidViewModel {
     public MutableLiveData<TVEntity> getDetail(int id){
         mDetail = mRepository.getDetail(id);
         return mDetail;
+    }
+
+    public LiveData<List<TVEntity>> getFavoriteList(){
+        return mRepository.getFavoriteList();
+    }
+
+    public LiveData<Long> setFavorite(TVEntity tv){
+        return mRepository.setFavorite(tv);
+    }
+
+    public LiveData<Integer> deleteFavorite(int id){
+        return mRepository.deleteFavorite(id);
+    }
+
+    public LiveData<Integer> isFavorite(int id){
+        return mRepository.isFavorite(id);
     }
 }

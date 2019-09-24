@@ -1,67 +1,108 @@
 package com.gws20.dicoding.moviecatalogue.entity;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.util.List;
 
+@Entity
 public class FilmEntity {
-    public final static java.lang.String ID = "id";
-    public final static java.lang.String POPULARITY = "popularity";
-    public final static java.lang.String VOTE_COUNT = "vote_count";
-    public final static java.lang.String VIDEO = "video";
-    public final static java.lang.String POSTER_PATH = "poster_path";
-    public final static java.lang.String ADULT = "adult";
-    public final static java.lang.String BACKDROP_PATH = "backdrop_path";
-    public final static java.lang.String ORI_LANG = "original_language";
-    public final static java.lang.String ORI_TITLE = "original_title";
-    public final static java.lang.String TITLE = "title";
-    public final static java.lang.String VOTE_AVG = "vote_average";
-    public final static java.lang.String OVERVIEW = "overview";
-    public final static java.lang.String RELEASE_DATE = "release_date";
+    @Ignore
+    public final static String ID = "id";
+    @Ignore
+    public final static String POPULARITY = "popularity";
+    @Ignore
+    public final static String VOTE_COUNT = "vote_count";
+    @Ignore
+    public final static String VIDEO = "video";
+    @Ignore
+    public final static String POSTER_PATH = "poster_path";
+    @Ignore
+    public final static String ADULT = "adult";
+    @Ignore
+    public final static String BACKDROP_PATH = "backdrop_path";
+    @Ignore
+    public final static String ORI_LANG = "original_language";
+    @Ignore
+    public final static String ORI_TITLE = "original_title";
+    @Ignore
+    public final static String TITLE = "title";
+    @Ignore
+    public final static String VOTE_AVG = "vote_average";
+    @Ignore
+    public final static String OVERVIEW = "overview";
+    @Ignore
+    public final static String RELEASE_DATE = "release_date";
 
-    public final static java.lang.String GENRES = "genres";
-    public final static java.lang.String BUDGET = "budget";
-    public final static java.lang.String HOMEPAGE = "homepage";
-    public final static java.lang.String PROD_COMPANIES = "production_companies";
-    public final static java.lang.String REVENUE = "revenue";
-    public final static java.lang.String RUNTIME = "runtime";
-    public final static java.lang.String SPOKEN_LANG = "spoken_languages";
-    public final static java.lang.String STATUS = "status";
-    public final static java.lang.String TAGLINE = "tagline";
-    public final static java.lang.String CREDITS = "credits";
-    public final static java.lang.String CAST = "cast";
-    public final static java.lang.String CREW = "crew";
-    public final static java.lang.String NAME = "name";
-    public final static java.lang.String PROFILE_PATH = "profile_path";
-    public final static java.lang.String JOB = "job";
+    @Ignore
+    public final static String GENRES = "genres";
+    @Ignore
+    public final static String BUDGET = "budget";
+    @Ignore
+    public final static String HOMEPAGE = "homepage";
+    @Ignore
+    public final static String PROD_COMPANIES = "production_companies";
+    @Ignore
+    public final static String REVENUE = "revenue";
+    @Ignore
+    public final static String RUNTIME = "runtime";
+    @Ignore
+    public final static String SPOKEN_LANG = "spoken_languages";
+    @Ignore
+    public final static String STATUS = "status";
+    @Ignore
+    public final static String TAGLINE = "tagline";
+    @Ignore
+    public final static String CREDITS = "credits";
+    @Ignore
+    public final static String CAST = "cast";
+    @Ignore
+    public final static String CREW = "crew";
+    @Ignore
+    public final static String NAME = "name";
+    @Ignore
+    public final static String PROFILE_PATH = "profile_path";
+    @Ignore
+    public final static String JOB = "job";
 
+    @PrimaryKey
     private int id;
+    @Ignore
     private long popularity;
     private int vote_count;
+    @Ignore
     private Boolean video;
-    private java.lang.String poster_path;
+    private String poster_path;
     private Boolean adult;
-    private java.lang.String backdrop_path;
-    private java.lang.String original_language;
-    private java.lang.String original_title;
-    private java.lang.String title;
+    private String backdrop_path;
+    @Ignore
+    private String original_language;
+    @Ignore
+    private String original_title;
+    private String title;
     private long vote_average;
-    private java.lang.String overview;
-    private java.lang.String release_date;
+    private String overview;
+    private String release_date;
 
+    @Ignore
     private List<String> genres;
     private int budget;
-    private java.lang.String homepage;
-    private java.lang.String production_companies;
+    private String homepage;
+    private String production_companies;
     private int revenue;
     private int runtime;
+    @Ignore
     private List<LanguageEntity> spoken_languages;
-    private java.lang.String status;
-    private java.lang.String tagline;
+    private String status;
+    private String tagline;
+    @Ignore
     private List<PeopleEntity> cast;
-    private java.lang.String producer;
-    private java.lang.String director;
-    private java.lang.String writer;
+    private String producer;
+    private String director;
+    private String writer;
 
-    public FilmEntity(int id, java.lang.String poster_path, java.lang.String title, long vote_average, java.lang.String overview) {
+    public FilmEntity(int id, String poster_path, String title, long vote_average, String overview) {
         this.id = id;
         this.poster_path = poster_path;
         this.title = title;
@@ -69,12 +110,116 @@ public class FilmEntity {
         this.overview = overview;
     }
 
-    public FilmEntity(int id, int vote_count, java.lang.String poster_path, Boolean adult, java.lang.String backdrop_path,
-                      java.lang.String title, long vote_average, java.lang.String overview, java.lang.String release_date,
-                      List<String> genres, int budget, java.lang.String homepage,
-                      java.lang.String production_companies, int revenue, int runtime,
-                      java.lang.String status, java.lang.String tagline, List<PeopleEntity> cast, java.lang.String producer,
-                      java.lang.String director, java.lang.String writer) {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setPopularity(long popularity) {
+        this.popularity = popularity;
+    }
+
+    public void setVote_count(int vote_count) {
+        this.vote_count = vote_count;
+    }
+
+    public void setVideo(Boolean video) {
+        this.video = video;
+    }
+
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
+    }
+
+    public void setAdult(Boolean adult) {
+        this.adult = adult;
+    }
+
+    public void setBackdrop_path(String backdrop_path) {
+        this.backdrop_path = backdrop_path;
+    }
+
+    public void setOriginal_language(String original_language) {
+        this.original_language = original_language;
+    }
+
+    public void setOriginal_title(String original_title) {
+        this.original_title = original_title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setVote_average(long vote_average) {
+        this.vote_average = vote_average;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public void setRelease_date(String release_date) {
+        this.release_date = release_date;
+    }
+
+    public void setGenres(List<String> genres) {
+        this.genres = genres;
+    }
+
+    public void setBudget(int budget) {
+        this.budget = budget;
+    }
+
+    public void setHomepage(String homepage) {
+        this.homepage = homepage;
+    }
+
+    public void setProduction_companies(String production_companies) {
+        this.production_companies = production_companies;
+    }
+
+    public void setRevenue(int revenue) {
+        this.revenue = revenue;
+    }
+
+    public void setRuntime(int runtime) {
+        this.runtime = runtime;
+    }
+
+    public void setSpoken_languages(List<LanguageEntity> spoken_languages) {
+        this.spoken_languages = spoken_languages;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setTagline(String tagline) {
+        this.tagline = tagline;
+    }
+
+    public void setCast(List<PeopleEntity> cast) {
+        this.cast = cast;
+    }
+
+    public void setProducer(String producer) {
+        this.producer = producer;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public void setWriter(String writer) {
+        this.writer = writer;
+    }
+
+    public FilmEntity(int id, int vote_count, String poster_path, Boolean adult, String backdrop_path,
+                      String title, long vote_average, String overview, String release_date,
+                      List<String> genres, int budget, String homepage,
+                      String production_companies, int revenue, int runtime,
+                      String status, String tagline, List<PeopleEntity> cast, String producer,
+                      String director, String writer) {
         this.id = id;
         this.vote_count = vote_count;
         this.poster_path = poster_path;
@@ -114,7 +259,7 @@ public class FilmEntity {
         return video;
     }
 
-    public java.lang.String getPoster_path() {
+    public String getPoster_path() {
         return poster_path;
     }
 
@@ -122,19 +267,19 @@ public class FilmEntity {
         return adult;
     }
 
-    public java.lang.String getBackdrop_path() {
+    public String getBackdrop_path() {
         return backdrop_path;
     }
 
-    public java.lang.String getOriginal_language() {
+    public String getOriginal_language() {
         return original_language;
     }
 
-    public java.lang.String getOriginal_title() {
+    public String getOriginal_title() {
         return original_title;
     }
 
-    public java.lang.String getTitle() {
+    public String getTitle() {
         return title;
     }
 
@@ -142,11 +287,11 @@ public class FilmEntity {
         return vote_average;
     }
 
-    public java.lang.String getOverview() {
+    public String getOverview() {
         return overview;
     }
 
-    public java.lang.String getRelease_date() {
+    public String getRelease_date() {
         return release_date;
     }
 
@@ -158,11 +303,11 @@ public class FilmEntity {
         return budget;
     }
 
-    public java.lang.String getHomepage() {
+    public String getHomepage() {
         return homepage;
     }
 
-    public java.lang.String getProduction_companies() {
+    public String getProduction_companies() {
         return production_companies;
     }
 
@@ -178,11 +323,11 @@ public class FilmEntity {
         return spoken_languages;
     }
 
-    public java.lang.String getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public java.lang.String getTagline() {
+    public String getTagline() {
         return tagline;
     }
 
@@ -190,15 +335,15 @@ public class FilmEntity {
         return cast;
     }
 
-    public java.lang.String getProducer() {
+    public String getProducer() {
         return producer;
     }
 
-    public java.lang.String getDirector() {
+    public String getDirector() {
         return director;
     }
 
-    public java.lang.String getWriter() {
+    public String getWriter() {
         return writer;
     }
 }
