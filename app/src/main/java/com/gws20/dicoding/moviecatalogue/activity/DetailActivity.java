@@ -45,7 +45,6 @@ public class DetailActivity extends AppCompatActivity {
     private ProgressBar mProgressBar;
     private ImageView mFavoriteIC;
     private TextView mFavoriteTxt;
-    private ProgressBar mFavoriteLoader;
 
     MovieViewModel mMovieViewModel;
     TVViewModel mTVViewModel;
@@ -72,9 +71,7 @@ public class DetailActivity extends AppCompatActivity {
         mProgressBar = findViewById(R.id.progress_loader);
         mFavoriteIC = findViewById(R.id.ic_favorite);
         mFavoriteTxt = findViewById(R.id.txt_favorite);
-        mFavoriteLoader = findViewById(R.id.progress_favorite);
         mProgressBar.setVisibility(View.VISIBLE);
-        mFavoriteLoader.setVisibility(View.GONE);
 
         mMovieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
         mTVViewModel = ViewModelProviders.of(this).get(TVViewModel.class);
@@ -103,7 +100,6 @@ public class DetailActivity extends AppCompatActivity {
                 adapter.setData(film.getCast());
                 Glide.with(DetailActivity.this).load(String.format(Api.IMG_HOST,Api.SIZE.W_342,film.getPoster_path())).into(mImg);
                 mProgressBar.setVisibility(View.GONE);
-                mFavoriteLoader.setVisibility(View.VISIBLE);
                 mFavoriteTxt.setText("-");
                 mMovieViewModel.isFavorite(getIntent().getIntExtra(Api.MOVIE,-1))
                         .observe(DetailActivity.this, new Observer<Integer>() {
@@ -138,7 +134,6 @@ public class DetailActivity extends AppCompatActivity {
                     adapter.setData(tv.getCast());
                     Glide.with(DetailActivity.this).load(String.format(Api.IMG_HOST,Api.SIZE.W_342,tv.getPoster_path())).into(mImg);
                     mProgressBar.setVisibility(View.GONE);
-                    mFavoriteLoader.setVisibility(View.VISIBLE);
                     mFavoriteTxt.setText("-");
                     mTVViewModel.isFavorite(getIntent().getIntExtra(Api.TV,-1))
                             .observe(DetailActivity.this, new Observer<Integer>() {
@@ -169,8 +164,10 @@ public class DetailActivity extends AppCompatActivity {
         }else {
             mFavoriteIC.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite_red_600_24dp));
             mFavoriteTxt.setText(getString(R.string.delete_favorite));
+            mFavoriteIC.setOnClickListener(new favClick(data));
+            mFavoriteTxt.setOnClickListener(new favClick(data));
         }
-        mFavoriteLoader.setVisibility(View.GONE);
+        mFavoriteIC.setVisibility(View.VISIBLE);
     }
 
     private class notFavClick implements View.OnClickListener{
@@ -183,9 +180,6 @@ public class DetailActivity extends AppCompatActivity {
         }
         @Override
         public void onClick(View v) {
-            mFavoriteIC.setVisibility(View.GONE);
-            mFavoriteTxt.setVisibility(View.GONE);
-            mFavoriteLoader.setVisibility(View.VISIBLE);
             mFavoriteTxt.setText(getString(R.string.saving));
             if(mFilm!=null){//movie
                 mMovieViewModel.setFavorite(mFilm).observe(DetailActivity.this, new Observer<Long>() {
@@ -202,12 +196,7 @@ public class DetailActivity extends AppCompatActivity {
             }else mTVViewModel.setFavorite(mTV).observe(DetailActivity.this, new Observer<Long>() {
                 @Override
                 public void onChanged(@Nullable Long longs) {
-                    if(longs==0){
-                        UIFavorite(0, mTV);
-                        Toast.makeText(DetailActivity.this,"Failed to set favorite",Toast.LENGTH_LONG).show();
-                    }else {
-                        UIFavorite(1, mTV);
-                    }
+                    UIFavorite(1, mTV);
                 }
             });
         }
@@ -223,31 +212,18 @@ public class DetailActivity extends AppCompatActivity {
         }
         @Override
         public void onClick(View v) {
-            mFavoriteIC.setVisibility(View.GONE);
-            mFavoriteTxt.setVisibility(View.GONE);
-            mFavoriteLoader.setVisibility(View.VISIBLE);
             mFavoriteTxt.setText(getString(R.string.saving));
             if(mFilm!=null){//movie
                 mMovieViewModel.deleteFavorite(mFilm.getId()).observe(DetailActivity.this, new Observer<Integer>() {
                     @Override
                     public void onChanged(@Nullable Integer integer) {
-                        if(integer==0){
-                            UIFavorite(1, mFilm);
-                            Toast.makeText(DetailActivity.this,"Failed to delete favorite",Toast.LENGTH_LONG).show();
-                        }else {
-                            UIFavorite(0, mFilm);
-                        }
+                        UIFavorite(0, mFilm);
                     }
                 });
             }else mTVViewModel.deleteFavorite(mTV.getId()).observe(DetailActivity.this, new Observer<Integer>() {
                 @Override
                 public void onChanged(@Nullable Integer integer) {
-                    if(integer==0){
-                        UIFavorite(1, mTV);
-                        Toast.makeText(DetailActivity.this,"Failed to delete favorite",Toast.LENGTH_LONG).show();
-                    }else {
-                        UIFavorite(0, mTV);
-                    }
+                    UIFavorite(0, mTV);
                 }
             });
         }
