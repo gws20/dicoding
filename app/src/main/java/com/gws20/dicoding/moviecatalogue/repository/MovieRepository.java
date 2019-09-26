@@ -26,6 +26,7 @@ import java.util.List;
 public class MovieRepository {
     private Application mAplication;
     private MutableLiveData<List<FilmEntity>> mList;
+    private MutableLiveData<List<FilmEntity>> mSearchList;
     private MutableLiveData<FilmEntity> mDetail;
     private MovieFavoriteDao mMovieDao;
 
@@ -35,6 +36,7 @@ public class MovieRepository {
         mAplication=application;
         mList = new MutableLiveData<>();
         mDetail = new MutableLiveData<>();
+        mSearchList = new MutableLiveData<>();
         AndroidNetworking.initialize(application);
     }
 
@@ -58,6 +60,30 @@ public class MovieRepository {
                     }
                 });
         return mList;
+    }
+
+    public MutableLiveData<List<FilmEntity>> getSearchList(String query){
+        AndroidNetworking.get(Api.HOST_SEARCH_MOVIE)
+                .addQueryParameter(Api.QUERY,query)
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("gws20_search",response.toString());
+                        try {
+                            mSearchList.postValue(Api.parseMovies(response));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        Toast.makeText(mAplication,"Error Network, Please check your connection",Toast.LENGTH_LONG).show();
+                    }
+                });
+        return mSearchList;
     }
 
     public MutableLiveData<FilmEntity> getDetail(int id){

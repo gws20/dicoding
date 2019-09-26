@@ -29,6 +29,10 @@ public class TVViewModel extends AndroidViewModel {
         return mList;
     }
 
+    public LiveData<List<TVEntity>> getSearchList(String query){
+        return mRepository.getSearchList(query);
+    }
+
     public MutableLiveData<TVEntity> getDetail(int id){
         mDetail = mRepository.getDetail(id);
         return mDetail;

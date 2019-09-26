@@ -26,6 +26,7 @@ import java.util.List;
 public class TVRepository {
     private Application mAplication;
     private MutableLiveData<List<TVEntity>> mList;
+    private MutableLiveData<List<TVEntity>> mSearchList;
     private MutableLiveData<TVEntity> mDetail;
     private TVFavoriteDao mTVDao;
 
@@ -35,6 +36,7 @@ public class TVRepository {
         mAplication=application;
         mList = new MutableLiveData<>();
         mDetail = new MutableLiveData<>();
+        mSearchList = new MutableLiveData<>();
         AndroidNetworking.initialize(application);
     }
 
@@ -58,6 +60,29 @@ public class TVRepository {
                     }
                 });
         return mList;
+    }
+
+    public MutableLiveData<List<TVEntity>> getSearchList(String query){
+        AndroidNetworking.get(Api.HOST_SEARCH_TV)
+                .addQueryParameter(Api.QUERY, query)
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            mSearchList.postValue(Api.parseTV(response));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        Toast.makeText(mAplication,"Error Network, Please check your connection",Toast.LENGTH_LONG).show();
+                    }
+                });
+        return mSearchList;
     }
 
     public MutableLiveData<TVEntity> getDetail(int id){

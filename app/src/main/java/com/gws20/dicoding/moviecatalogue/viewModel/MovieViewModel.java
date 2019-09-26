@@ -27,6 +27,10 @@ public class MovieViewModel extends AndroidViewModel {
         return mList;
     }
 
+    public LiveData<List<FilmEntity>> getSearchList(String query){
+        return mRepository.getSearchList(query);
+    }
+
     public MutableLiveData<FilmEntity> getDetail(int id){
         mDetail = mRepository.getDetail(id);
         return mDetail;
