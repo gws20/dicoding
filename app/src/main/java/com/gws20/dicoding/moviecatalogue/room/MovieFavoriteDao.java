@@ -21,6 +21,9 @@ public interface MovieFavoriteDao {
     @Query("SELECT * FROM FilmEntity")
     LiveData<List<FilmEntity>> getMovieList();
 
+    @Query("SELECT * FROM FilmEntity")
+    List<FilmEntity> getMovieListWidget();
+
     @Query("DELETE FROM FilmEntity WHERE id=:movieId")
     int delete(Integer movieId);
 

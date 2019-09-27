@@ -27,6 +27,7 @@ public class MovieRepository {
     private Application mAplication;
     private MutableLiveData<List<FilmEntity>> mList;
     private MutableLiveData<List<FilmEntity>> mSearchList;
+    private MutableLiveData<List<FilmEntity>> mReleaseList;
     private MutableLiveData<FilmEntity> mDetail;
     private MovieFavoriteDao mMovieDao;
 
@@ -36,6 +37,7 @@ public class MovieRepository {
         mAplication=application;
         mList = new MutableLiveData<>();
         mDetail = new MutableLiveData<>();
+        mReleaseList = new MutableLiveData<>();
         mSearchList = new MutableLiveData<>();
         AndroidNetworking.initialize(application);
     }
@@ -70,7 +72,6 @@ public class MovieRepository {
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("gws20_search",response.toString());
                         try {
                             mSearchList.postValue(Api.parseMovies(response));
                         } catch (JSONException e) {
@@ -84,6 +85,32 @@ public class MovieRepository {
                     }
                 });
         return mSearchList;
+    }
+
+    public MutableLiveData<List<FilmEntity>> getReleaseList(String date){
+        Log.d("gws20_alarm",date);
+        AndroidNetworking.get(Api.API_HOST_EXCLUDE_LANG)
+                .addQueryParameter("primary_release_date.gte",date)
+                .addQueryParameter("primary_release_date.lte",date)
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("gws20_alarm",response.toString());
+                        try {
+                            mReleaseList.postValue(Api.parseMovies(response));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        Toast.makeText(mAplication,"Error Network, Please check your connection",Toast.LENGTH_LONG).show();
+                    }
+                });
+        return mReleaseList;
     }
 
     public MutableLiveData<FilmEntity> getDetail(int id){

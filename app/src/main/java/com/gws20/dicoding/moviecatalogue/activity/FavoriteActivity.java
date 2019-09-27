@@ -46,7 +46,11 @@ public class FavoriteActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem setting = menu.findItem(R.id.action_settings);
+        MenuItem search = menu.findItem(R.id.action_search);
+        MenuItem reminder = menu.findItem(R.id.action_reminder);
         setting.setVisible(false);
+        search.setVisible(false);
+        reminder.setVisible(false);
         return super.onPrepareOptionsMenu(menu);
     }
 

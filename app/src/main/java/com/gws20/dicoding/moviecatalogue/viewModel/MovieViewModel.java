@@ -5,6 +5,7 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.gws20.dicoding.moviecatalogue.entity.FilmEntity;
 import com.gws20.dicoding.moviecatalogue.repository.MovieRepository;
@@ -50,5 +51,10 @@ public class MovieViewModel extends AndroidViewModel {
 
     public LiveData<Integer> isFavorite(int id){
         return mRepository.isFavorite(id);
+    }
+
+    public LiveData<List<FilmEntity>> getReleaseList(String date){
+        mRepository.getReleaseList(date);
+        return mRepository.getReleaseList(date);
     }
 }

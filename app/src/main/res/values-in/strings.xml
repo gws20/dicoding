@@ -23,6 +23,10 @@
     <string name="saving">sedang memproses…</string>
     <string name="delete_favorite">batalkan favorit</string>
     <string name="txt_not_found">Tidak Ditemukan</string>
-    <string name="txt_appwidget">STAR WARS BANNER</string>
+    <string name="txt_appwidget">Katalog Film</string>
     <string name="txt_empty">NO DATA</string>
+    <string name="appwidget_text">CONTOH</string>
+    <string name="add_widget">Tambah widget</string>
+    <string name="txt_daily">Catalogue Movie merindukanmu</string>
+    <string name="txt_release">%1$s hari ini sudah rilis!</string>
 </resources>

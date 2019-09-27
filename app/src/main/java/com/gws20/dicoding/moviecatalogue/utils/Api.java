@@ -15,6 +15,7 @@ public class Api {
     public final static String API_HOST = "https://api.themoviedb.org/3/%s/%s?api_key=07d29b89e107ae225810a189159b21a3&language=en-US"; //{jenis}
     public final static String API_DETAIL_HOST = "https://api.themoviedb.org/3/{jenis}/{id}?api_key=07d29b89e107ae225810a189159b21a3&language=en-US&append_to_response=credits"; //{jenis,id}
     public final static String IMG_HOST = "https://image.tmdb.org/t/p/%s/%s"; //path param={size,name}
+    public final static String API_HOST_EXCLUDE_LANG = "https://api.themoviedb.org/3/discover/movie?api_key=07d29b89e107ae225810a189159b21a3";
 
     public final static String MOVIE = "movie";
     public final static String TV = "tv";

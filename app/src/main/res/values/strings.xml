@@ -22,9 +22,11 @@
     <string name="delete_favorite">delete from favorite</string>
     <string name="action_search">Search</string>
     <string name="txt_not_found">Not Found</string>
-    <string name="txt_appwidget">STAR WARS BANNER</string>
+    <string name="txt_appwidget">Movie Catalogue</string>
     <string name="txt_empty">NO DATA</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="txt_daily">Catalogue Movie missing you</string>
+    <string name="txt_release">%1$s has been release today!</string>
 
 </resources>

@@ -30,11 +30,11 @@ import com.gws20.dicoding.moviecatalogue.adapter.TVAdapter;
 import com.gws20.dicoding.moviecatalogue.adapter.TabAdapter;
 import com.gws20.dicoding.moviecatalogue.entity.FilmEntity;
 import com.gws20.dicoding.moviecatalogue.entity.TVEntity;
+import com.gws20.dicoding.moviecatalogue.receivers.RemainderReceiver;
 import com.gws20.dicoding.moviecatalogue.utils.Api;
 import com.gws20.dicoding.moviecatalogue.viewModel.MovieViewModel;
 import com.gws20.dicoding.moviecatalogue.viewModel.TVViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -103,6 +103,10 @@ public class MainActivity extends AppCompatActivity {
 
         setUISearchOff();
 
+        //alarm
+        RemainderReceiver remainderReceiver = new RemainderReceiver();
+        remainderReceiver.setAlarm(this,RemainderReceiver.REQUEST_CODE_DAILY,7,mMovieViewModel);
+        remainderReceiver.setAlarm(this,RemainderReceiver.REQUEST_CODE_RELEASE,8,mMovieViewModel);
     }
 
     @Override
