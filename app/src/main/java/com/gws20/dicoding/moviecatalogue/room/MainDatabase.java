@@ -8,7 +8,7 @@ import android.content.Context;
 import com.gws20.dicoding.moviecatalogue.entity.FilmEntity;
 import com.gws20.dicoding.moviecatalogue.entity.TVEntity;
 
-@Database(entities = {FilmEntity.class, TVEntity.class}, version = 1)
+@Database(entities = {FilmEntity.class, TVEntity.class}, version = 1, exportSchema = false)
 public abstract class MainDatabase extends RoomDatabase {
     private static final String DB_NAME = "gws20.db";
 

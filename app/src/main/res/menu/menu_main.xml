@@ -11,21 +11,16 @@
 
     <group android:menuCategory="container">
         <item
-            android:id="@+id/action_settings"
+            android:id="@+id/action_preferences"
             android:orderInCategory="100"
-            android:title="@string/action_settings"
-            app:showAsAction="ifRoom" />
-        <item
-            android:id="@+id/action_reminder"
-            android:orderInCategory="99"
-            android:title="@string/action_language"
-            android:icon="@drawable/ic_language_white_24dp"
-            app:showAsAction="ifRoom" />
+            android:title="@string/action_preferences"
+            android:icon="@drawable/ic_settings_white_24dp"
+            app:showAsAction="collapseActionView" />
         <item
             android:id="@+id/action_language"
             android:orderInCategory="98"
             android:title="@string/action_language"
             android:icon="@drawable/ic_language_white_24dp"
-            app:showAsAction="ifRoom" />
+            app:showAsAction="collapseActionView" />
     </group>
 </menu>

@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
@@ -24,12 +25,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gws20.dicoding.moviecatalogue.Preferences.PreferencesAPI;
+import com.gws20.dicoding.moviecatalogue.Preferences.PreferencesManager;
 import com.gws20.dicoding.moviecatalogue.R;
 import com.gws20.dicoding.moviecatalogue.adapter.FilmAdapter;
 import com.gws20.dicoding.moviecatalogue.adapter.TVAdapter;
 import com.gws20.dicoding.moviecatalogue.adapter.TabAdapter;
 import com.gws20.dicoding.moviecatalogue.entity.FilmEntity;
 import com.gws20.dicoding.moviecatalogue.entity.TVEntity;
+import com.gws20.dicoding.moviecatalogue.fragment.MyPreferenceFragment;
 import com.gws20.dicoding.moviecatalogue.receivers.RemainderReceiver;
 import com.gws20.dicoding.moviecatalogue.utils.Api;
 import com.gws20.dicoding.moviecatalogue.viewModel.MovieViewModel;
@@ -105,8 +109,8 @@ public class MainActivity extends AppCompatActivity {
 
         //alarm
         RemainderReceiver remainderReceiver = new RemainderReceiver();
-        remainderReceiver.setAlarm(this,RemainderReceiver.REQUEST_CODE_DAILY,7,mMovieViewModel);
-        remainderReceiver.setAlarm(this,RemainderReceiver.REQUEST_CODE_RELEASE,8,mMovieViewModel);
+        if((Boolean) PreferencesManager.getInstance().get(getString(R.string.key_daily))) remainderReceiver.setAlarm(this,RemainderReceiver.REQUEST_CODE_DAILY,7,mMovieViewModel);
+        if((Boolean) PreferencesManager.getInstance().get(getString(R.string.key_release))) remainderReceiver.setAlarm(this,RemainderReceiver.REQUEST_CODE_RELEASE,8,mMovieViewModel);
     }
 
     @Override
@@ -186,8 +190,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem setting = menu.findItem(R.id.action_settings);
-        setting.setVisible(false);
+        MenuItem setting = menu.findItem(R.id.action_preferences);
+        MenuItem search = menu.findItem(R.id.action_search);
+        MenuItem language = menu.findItem(R.id.action_language);
+        setting.setVisible(true);
+        search.setVisible(true);
+        language.setVisible(true);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -198,9 +206,14 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        Intent intent;
         switch (id){
             case R.id.action_language:
-                Intent intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+                intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+                startActivity(intent);
+                break;
+            case R.id.action_preferences:
+                intent = new Intent(MainActivity.this,PreferenceActivity.class);
                 startActivity(intent);
                 break;
         }

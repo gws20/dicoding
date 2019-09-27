@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">Movie Catalogue</string>
     <string name="action_settings">Settings</string>
+    <string name="action_preferences">Preferences</string>
     <string name="action_language">Language</string>
     <string name="action_favorite">Favorite</string>
     <string name="content_image">content image</string>
     <string name="title_activity_detail">Detail</string>
+    <string name="title_activity_preference">Preferences</string>
     <string name="tab_movie">Movie</string>
     <string name="tab_tv">TV</string>
     <string name="txt_subject">Title</string>
@@ -28,5 +30,11 @@
     <string name="add_widget">Add widget</string>
     <string name="txt_daily">Catalogue Movie missing you</string>
     <string name="txt_release">%1$s has been release today!</string>
+    <string name="key_daily" translatable="false">daily</string>
+    <string name="key_release" translatable="false">release</string>
+    <string name="pref_daily">Daily Reminder</string>
+    <string name="pref_release">Release Today Reminder</string>
+    <string name="sumary_daily">Reminder for return the app</string>
+    <string name="sumary_release">Reminder showing the movie that release today</string>
 
 </resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:iconSpaceReserved="false">
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/key_daily"
+        android:title="@string/pref_daily"
+        android:summary="@string/sumary_daily"
+        app:iconSpaceReserved="false" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/key_release"
+        android:title="@string/pref_release"
+        android:summary="@string/sumary_release"
+        app:iconSpaceReserved="false" />
+
+</PreferenceScreen>

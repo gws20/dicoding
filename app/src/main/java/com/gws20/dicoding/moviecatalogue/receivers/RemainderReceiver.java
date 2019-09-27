@@ -39,6 +39,8 @@ public class RemainderReceiver extends BroadcastReceiver {
     public final static String CHANNEL_RELEASE_NAME = "channel release";
     public final static String REQUEST_CODE = "request_code";
     public final static String TIME = "time";
+    public final static int HOURS_DAILY = 7;
+    public final static int HOURS_RELEASE = 8;
 
     MovieViewModel mMovieViewModel;
 
@@ -87,13 +89,6 @@ public class RemainderReceiver extends BroadcastReceiver {
 
     public void setAlarm(Context context, int request_code, int hoursOfAlarm, MovieViewModel movieViewModel) {
         mMovieViewModel = movieViewModel;
-        sendNotification(context,CHANNEL_DAILY,CHANNEL_DAILY_NAME,200,
-                context.getString(R.string.app_name),context.getString(R.string.txt_daily),"");
-        sendNotification(context,CHANNEL_DAILY,CHANNEL_DAILY_NAME,201,
-                context.getString(R.string.app_name),"dddd","eeeee");
-        sendNotification(context,CHANNEL_DAILY+"1",CHANNEL_DAILY_NAME+"1",201,
-                context.getString(R.string.app_name),context.getString(R.string.txt_daily),null);
-        cancelAlarm(context,201);
         Calendar cal = Calendar.getInstance();
         final int hours = cal.get(Calendar.HOUR_OF_DAY);
         final int day = cal.get(Calendar.DAY_OF_MONTH);

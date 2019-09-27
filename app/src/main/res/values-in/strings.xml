@@ -2,11 +2,13 @@
 <resources>
     <string name="app_name">Katalog Film</string>
     <string name="action_settings">Pengaturan</string>
+    <string name="action_preferences">Pengaturan</string>
     <string name="action_language">Bahasa</string>
     <string name="action_favorite">Favorit</string>
     <string name="action_search">Pencarian</string>
     <string name="content_image">gambar</string>
     <string name="title_activity_detail">Rincian</string>
+    <string name="title_activity_preference">Pengaturan</string>
     <string name="tab_movie">Film</string>
     <string name="tab_tv">TV</string>
     <string name="txt_subject">Judul</string>
@@ -29,4 +31,8 @@
     <string name="add_widget">Tambah widget</string>
     <string name="txt_daily">Catalogue Movie merindukanmu</string>
     <string name="txt_release">%1$s hari ini sudah rilis!</string>
+    <string name="pref_daily">Pengingat harian</string>
+    <string name="pref_release">Pengingat rilis hari ini</string>
+    <string name="sumary_daily">Pengingat untuk kembali ke aplikasi</string>
+    <string name="sumary_release">Pengingat film yang rilis hari ini</string>
 </resources>

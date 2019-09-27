@@ -16,6 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".activity.PreferenceActivity"
+            android:label="@string/title_activity_preference"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <receiver android:name=".widget.FavoriteWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -44,11 +49,14 @@
             android:name=".activity.FavoriteActivity"
             android:label="@string/title_favorite"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <service
             android:name=".services.StackWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
-        <receiver android:name=".receivers.RemainderReceiver"
-            android:exported="true" >
+
+        <receiver
+            android:name=".receivers.RemainderReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.NOTIFY" />
             </intent-filter>
