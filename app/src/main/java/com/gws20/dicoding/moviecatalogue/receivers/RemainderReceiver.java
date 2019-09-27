@@ -18,6 +18,8 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.gws20.dicoding.moviecatalogue.R;
+import com.gws20.dicoding.moviecatalogue.activity.DetailActivity;
+import com.gws20.dicoding.moviecatalogue.activity.MainActivity;
 import com.gws20.dicoding.moviecatalogue.entity.FilmEntity;
 import com.gws20.dicoding.moviecatalogue.utils.Api;
 import com.gws20.dicoding.moviecatalogue.viewModel.MovieViewModel;
@@ -49,7 +51,7 @@ public class RemainderReceiver extends BroadcastReceiver {
         switch (intent.getIntExtra(REQUEST_CODE,0)){
             case REQUEST_CODE_DAILY:
                 sendNotification(context,CHANNEL_DAILY,CHANNEL_DAILY_NAME,200,
-                        context.getString(R.string.app_name),context.getString(R.string.txt_daily),"");
+                        context.getString(R.string.app_name),context.getString(R.string.txt_daily),"",0);
                 break;
             case REQUEST_CODE_RELEASE:
                 long time = intent.getLongExtra(TIME,0);
@@ -70,7 +72,8 @@ public class RemainderReceiver extends BroadcastReceiver {
                                     for(int i =0;i<filmEntities.size();i++){
                                         sendNotification(context,CHANNEL_RELEASE,CHANNEL_RELEASE_NAME,i+201,
                                                 filmEntities.get(i).getTitle(),
-                                                context.getString(R.string.txt_release,filmEntities.get(i).getTitle()),null);
+                                                context.getString(R.string.txt_release,filmEntities.get(i).getTitle()),
+                                                null, filmEntities.get(i).getId());
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -126,10 +129,20 @@ public class RemainderReceiver extends BroadcastReceiver {
     }
 
     public void sendNotification(Context context, String channel_id, String channel_name,
-                                 int notif_id, String title, String text, String subText) {
+                                 int notif_id, String title, String text, String subText, int idMovie) {
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        Intent intent;
+        if(idMovie==0) intent = new Intent(context, MainActivity.class);
+        else {
+            intent = new Intent(context, DetailActivity.class);
+            intent.putExtra(Api.MOVIE, idMovie);
+        }
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, channel_id)
+                .setContentIntent(pendingIntent)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle(title)
                 .setContentText(text)
