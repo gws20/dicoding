@@ -6,7 +6,6 @@ import android.preference.PreferenceManager;
 import com.gws20.dicoding.moviecatalogue.GWS20;
 
 import java.util.Map;
-import java.util.Set;
 import timber.log.Timber;
 
 public class PreferencesManager {
@@ -68,29 +67,15 @@ public class PreferencesManager {
             editor.putInt(key, (Integer) value);
         } else if (value instanceof Float) {
             editor.putFloat(key, (Float) value);
-        } else if (value instanceof Set) {
-            editor.putStringSet(key, (Set<String>) value);
         } else {
             throw new RuntimeException("Unhandled preference value type: " + value);
         }
         editor.apply();
     }
 
-    public boolean getBoolean(String key, boolean value) {
-        return preferences.getBoolean(key, value);
-    }
+
 
     public Map<String, ?> getAll() {
         return preferences.getAll();
-    }
-
-    public void reloadPreferences() {
-        for (Map.Entry<String, Object> keyValuePair : PreferencesAPI.DEFAULT_VALUE.entrySet()) {
-            save(keyValuePair.getKey(), get(keyValuePair.getKey()));
-        }
-    }
-
-    public SharedPreferences getPreferences() {
-        return preferences;
     }
 }

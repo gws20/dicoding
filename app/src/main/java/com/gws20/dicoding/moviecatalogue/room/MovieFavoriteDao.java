@@ -5,6 +5,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.database.Cursor;
 
 import com.gws20.dicoding.moviecatalogue.entity.FilmEntity;
 
@@ -22,7 +23,7 @@ public interface MovieFavoriteDao {
     LiveData<List<FilmEntity>> getMovieList();
 
     @Query("SELECT * FROM FilmEntity")
-    List<FilmEntity> getMovieListWidget();
+    Cursor getMovieListWidget();
 
     @Query("DELETE FROM FilmEntity WHERE id=:movieId")
     int delete(Integer movieId);

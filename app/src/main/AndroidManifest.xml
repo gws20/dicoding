@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.gws20.dicoding.moviecatalogue">
 
+    <permission android:name="com.gws20.dicoding.moviecatalogue.provider.READ_DATABASE" android:protectionLevel="normal"  />
+    <permission android:name="com.gws20.dicoding.moviecatalogue.provider.WRITE_DATABASE" android:protectionLevel="normal" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -20,16 +23,6 @@
             android:name=".activity.PreferenceActivity"
             android:label="@string/title_activity_preference"
             android:theme="@style/AppTheme.NoActionBar"/>
-
-        <receiver android:name=".widget.FavoriteWidget">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/favorite_widget_info" />
-        </receiver>
 
         <activity
             android:name=".activity.DetailActivity"
@@ -60,6 +53,23 @@
             <intent-filter>
                 <action android:name="android.intent.action.NOTIFY" />
             </intent-filter>
+        </receiver>
+
+        <provider
+            android:name=".provider.MovieContentProvider"
+            android:authorities="com.gws20.dicoding.moviecatalogue.provider"
+            android:exported="true"
+            android:readPermission="com.gws20.dicoding.moviecatalogue.provider.READ_DATABASE"
+            android:writePermission="com.gws20.dicoding.moviecatalogue.provider.WRITE_DATABASE" />
+
+        <receiver android:name=".widget.FavoriteWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/favorite_widget_info" />
         </receiver>
     </application>
 

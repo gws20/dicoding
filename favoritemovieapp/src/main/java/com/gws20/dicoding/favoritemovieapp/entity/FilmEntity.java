@@ -1,4 +1,4 @@
-package com.gws20.dicoding.moviecatalogue.entity;
+package com.gws20.dicoding.favoritemovieapp.entity;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
@@ -104,11 +104,9 @@ public class FilmEntity {
     private String director;
     private String writer;
 
-    public FilmEntity(int id, String poster_path, String title, long vote_average, String overview) {
-        this.id = id;
+    public FilmEntity(String poster_path, String title, String overview) {
         this.poster_path = poster_path;
         this.title = title;
-        this.vote_average = vote_average;
         this.overview = overview;
     }
 
@@ -213,35 +211,6 @@ public class FilmEntity {
     }
 
     public void setWriter(String writer) {
-        this.writer = writer;
-    }
-
-    public FilmEntity(int id, int vote_count, String poster_path, Boolean adult, String backdrop_path,
-                      String title, long vote_average, String overview, String release_date,
-                      List<String> genres, int budget, String homepage,
-                      String production_companies, int revenue, int runtime,
-                      String status, String tagline, List<PeopleEntity> cast, String producer,
-                      String director, String writer) {
-        this.id = id;
-        this.vote_count = vote_count;
-        this.poster_path = poster_path;
-        this.adult = adult;
-        this.backdrop_path = backdrop_path;
-        this.title = title;
-        this.vote_average = vote_average;
-        this.overview = overview;
-        this.release_date = release_date;
-        this.genres = genres;
-        this.budget = budget;
-        this.homepage = homepage;
-        this.production_companies = production_companies;
-        this.revenue = revenue;
-        this.runtime = runtime;
-        this.status = status;
-        this.tagline = tagline;
-        this.cast = cast;
-        this.producer = producer;
-        this.director = director;
         this.writer = writer;
     }
 
